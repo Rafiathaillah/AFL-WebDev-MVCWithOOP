@@ -19,9 +19,9 @@
             <table class="mx-auto w-full max-w-md border-collapse border border-gray-400">
                 <thead>
                     <tr class="bg-sky-300">
-                        <th class="border border-gray-400 px-2 py-2 text-left">Customer</th>
-                        <th class="border border-gray-400 px-2 py-2 text-left">Nomor HP</th>
-                        <th class="border border-gray-400 px-2 py-2 text-left">Kamar</th>
+                        <th class="border border-gray-400 px-2 py-2 text-center">Nomor Kamar</th>
+                        <th class="border border-gray-400 px-2 py-2 text-center">Nama Customer</th>
+                        <th class="border border-gray-400 px-2 py-2 text-center">Nomor HP</th>
                         <th class="border border-gray-400 px-2 py-2 text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -29,12 +29,5 @@
             </table>
         </main>
     </div>
-    <script>
-        let orders=JSON.parse(localStorage.getItem('hotelOrders')||'[]');
-        function render(){document.getElementById('order-list').innerHTML=orders.length?orders.map((order,index)=>`<tr><td class="border border-gray-400 px-2 py-2">${order.name}</td><td class="border border-gray-400 px-2 py-2">${order.phone}</td><td class="border border-gray-400 px-2 py-2">${order.rooms.join(', ')}</td><td class="border border-gray-400 px-2 py-2 text-center"><button onclick="editOrder(${index})" class="mr-3 text-blue-700 hover:underline">Edit</button><button onclick="deleteOrder(${index})" class="text-red-700 hover:underline">Delete</button></td></tr>`).join(''):'<tr><td colspan="4" class="border border-gray-400 px-2 py-4 text-center">Belum ada order.</td></tr>'}
-        function editOrder(index){const order=orders[index],name=prompt('Nama customer:',order.name),phone=prompt('Nomor HP:',order.phone);if(name&&phone){order.name=name.trim();order.phone=phone.trim();localStorage.setItem('hotelOrders',JSON.stringify(orders));render()}}
-        function deleteOrder(index){if(confirm(`Hapus order ${orders[index].name}? Data kamar tetap tersimpan.`)){orders.splice(index,1);localStorage.setItem('hotelOrders',JSON.stringify(orders));render()}}
-        render();
-    </script>
 </body>
 </html>

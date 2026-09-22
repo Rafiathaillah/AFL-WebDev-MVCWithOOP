@@ -35,13 +35,5 @@
             </form>
         </main>
     </div>
-    <script>
-        const rooms=JSON.parse(localStorage.getItem('hotelRooms')||'["101","102","103","201","202"]');
-        const options=document.getElementById('room-options');
-        options.innerHTML=rooms.map(room=>`<label class="block cursor-pointer px-1 py-1 hover:bg-blue-50"><input type="checkbox" name="rooms" value="${room}" class="mr-2">Room ${room}</label>`).join('');
-        const menu=document.getElementById('room-menu'),button=document.getElementById('room-button');
-        button.addEventListener('click',()=>menu.classList.toggle('hidden'));
-        document.getElementById('order-form').addEventListener('submit',event=>{event.preventDefault();const data=new FormData(event.target),selected=data.getAll('rooms');if(!selected.length){alert('Pilih minimal satu kamar.');return}const orders=JSON.parse(localStorage.getItem('hotelOrders')||'[]');orders.push({id:Date.now(),name:data.get('name'),phone:data.get('phone'),rooms:selected});localStorage.setItem('hotelOrders',JSON.stringify(orders));alert('Order berhasil disimpan.');event.target.reset();menu.classList.add('hidden')});
-    </script>
 </body>
 </html>
