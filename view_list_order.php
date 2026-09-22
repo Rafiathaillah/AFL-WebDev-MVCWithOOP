@@ -12,7 +12,6 @@
         <header class="border-b border-gray-500 bg-bluebox px-3 py-2 font-bold">
             <nav class="flex gap-3">
                 <a href="index.php" class="hover:underline">Dashboard</a><span>|</span>
-                <a href="view_list_room.php" class="hover:underline">Daftar Kamar</a><span>|</span>
                 <a href="view_list_order.php" class="hover:underline">Daftar Order</a>
             </nav>
         </header>
