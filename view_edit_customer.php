@@ -1,3 +1,7 @@
+<?php
+/** @var model_customer $customer */
+/** @var array<string, model_room> $rooms_for_dropdown */
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>

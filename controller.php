@@ -3,10 +3,11 @@ include("model_customer.php");
 include("model_room.php");
 session_start();
 
-function initRooms() {
+function initRooms()
+{
     if (!isset($_SESSION['rooms'])) {
         $_SESSION['rooms'] = [];
-        
+
         for ($i = 101; $i <= 110; $i++) {
             $kamar = new model_room();
             $kamar->nomor_kamar = (string)$i;
@@ -14,7 +15,7 @@ function initRooms() {
             $kamar->customer_id = null;
             $_SESSION['rooms'][(string)$i] = $kamar;
         }
-        
+
         for ($i = 201; $i <= 210; $i++) {
             $kamar = new model_room();
             $kamar->nomor_kamar = (string)$i;
@@ -33,19 +34,22 @@ function initRooms() {
     }
 }
 
-function listCustomers() {
+function listCustomers()
+{
     initRooms();
     $customers = isset($_SESSION['customers']) ? $_SESSION['customers'] : [];
     include("view_list_order.php");
 }
 
-function listCustomerDirectory() {
+function listCustomerDirectory()
+{
     initRooms();
     $customers = isset($_SESSION['customers']) ? $_SESSION['customers'] : [];
     include("view_customer.php");
 }
 
-function createCustomer() {
+function createCustomer()
+{
     initRooms();
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['nama'])) {
         $newCustomer = new model_customer();
@@ -73,10 +77,11 @@ function createCustomer() {
     include("index.php");
 }
 
-function editCustomer() {
+function editCustomer()
+{
     initRooms();
     $id = isset($_GET['id']) ? $_GET['id'] : null;
-    
+
     if (!$id || !isset($_SESSION['customers'][$id])) {
         header("Location: controller.php?action=list");
         exit;
@@ -111,16 +116,22 @@ function editCustomer() {
     include("view_edit_customer.php");
 }
 
-function deleteCustomer() {
-    $id = isset($_GET['id']) ? $_GET['id'] : null;
-    if ($id && isset($_SESSION['customers'][$id])) {
-        $customer = $_SESSION['customers'][$id];
-        foreach ($customer->rooms_assigned as $room) {
-            if (isset($_SESSION['rooms'][$room])) {
-                $_SESSION['rooms'][$room]->customer_id = null;
-            }
+function deleteOrder()
+{
+    $room_number = isset($_GET['room']) ? $_GET['room'] : null;
+    if ($room_number && isset($_SESSION['rooms'][$room_number])) {
+        $room = $_SESSION['rooms'][$room_number];
+        $customer_id = $room->customer_id;
+
+        if ($customer_id && isset($_SESSION['customers'][$customer_id])) {
+            $customer = $_SESSION['customers'][$customer_id];
+            $customer->rooms_assigned = array_values(array_filter(
+                $customer->rooms_assigned,
+                fn($assigned_room) => (string)$assigned_room !== (string)$room_number
+            ));
         }
-        unset($_SESSION['customers'][$id]);
+
+        $room->customer_id = null;
     }
     header("Location: controller.php?action=list");
     exit;
@@ -144,9 +155,8 @@ if (defined('INDEX_VIEW')) {
     } elseif ($action == 'edit') {
         editCustomer();
     } elseif ($action == 'delete') {
-        deleteCustomer();
+        deleteOrder();
     } else {
         listCustomers();
     }
 }
-?>

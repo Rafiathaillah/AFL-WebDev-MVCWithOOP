@@ -48,7 +48,7 @@
                                         <td class="border border-gray-400 px-2 py-2"><?= htmlspecialchars($customer->nama) ?></td>
                                         <td class="border border-gray-400 px-2 py-2"><?= htmlspecialchars($customer->telepon) ?></td>
                                         <td class="border border-gray-400 px-2 py-2 text-center">
-                                            <a href="controller.php?action=delete&amp;id=<?= urlencode($customer->id) ?>" class="text-red-700 hover:underline" onclick="return confirm('Hapus order dan customer ini?')">Hapus</a>
+                                            <a href="controller.php?action=delete&amp;room=<?= urlencode($room) ?>" class="text-red-700 hover:underline" onclick="return confirm('Hapus order kamar ini?')">Hapus</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
