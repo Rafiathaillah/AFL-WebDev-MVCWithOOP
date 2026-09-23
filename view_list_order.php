@@ -9,7 +9,7 @@
             extend:{
                 colors:{
                     line:'#999999',
-                    bluebox:'#b8e3f8',
+                    yellowbox:'#f4f98b',
                     pink:'#c3265c'
                 }
             }
@@ -19,7 +19,7 @@
 </head>
 <body class="font-sans text-sm text-black">
     <div class="shell mx-auto mt-5 min-h-[680px] border border-gray-500">
-        <header class="border-b border-gray-500 bg-bluebox px-3 py-2 font-bold">
+        <header class="border-b border-gray-500 bg-yellowbox px-3 py-2 font-bold">
             <nav class="flex gap-3">
                 <a href="index.php" class="hover:underline">Dashboard</a><span>|</span>
                 <a href="controller.php?action=list" class="hover:underline">Daftar Order</a><span>|</span>
@@ -30,7 +30,7 @@
             <h1 class="mb-8 text-center text-3xl text-blue-800">Daftar Order</h1>
             <table class="mx-auto w-full max-w border-collapse border border-gray-400">
                 <thead>
-                    <tr class="bg-sky-300">
+                    <tr class="bg-yellowbox">
                         <th class="border border-gray-400 px-2 py-2 text-center">Nomor Kamar</th>
                         <th class="border border-gray-400 px-2 py-2 text-center">Nama Customer</th>
                         <th class="border border-gray-400 px-2 py-2 text-center">Nomor HP</th>
@@ -47,7 +47,9 @@
                                         <td class="border border-gray-400 px-2 py-2"><?= htmlspecialchars($room) ?></td>
                                         <td class="border border-gray-400 px-2 py-2"><?= htmlspecialchars($customer->nama) ?></td>
                                         <td class="border border-gray-400 px-2 py-2"><?= htmlspecialchars($customer->telepon) ?></td>
-                                        <td class="border border-gray-400 px-2 py-2 text-center"><a href="controller.php?action=delete&amp;id=<?= urlencode($customer->id) ?>" class="text-red-700 hover:underline" onclick="return confirm('Hapus order dan customer ini?')">Hapus</a></td>
+                                        <td class="border border-gray-400 px-2 py-2 text-center">
+                                            <a href="controller.php?action=delete&amp;id=<?= urlencode($customer->id) ?>" class="text-red-700 hover:underline" onclick="return confirm('Hapus order dan customer ini?')">Hapus</a>
+                                        </td>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php endforeach; ?>
